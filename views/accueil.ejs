@@ -1,0 +1,67 @@
+<%- include('./includes/head.ejs') %>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Notes app</h1>
+            <h4>nous sommes le : <%= heureConnectee %></h4>
+            <nav>
+                <ul>
+                    <li> <a href="/">Accueil</a></li>
+                    <li> <a href="/apropos">A Propos</a></li>
+                    <li> <a href="/inscription">Inscription</a></li>
+                    <li> <a href="/connexion">Connexion</a></li>
+                </ul>
+            </nav>
+        </header>
+        <section>
+            <h1>Formulaire de contact</h1>
+        
+            <form method="post" action="/">
+                <input type="hidden" name="cacher" id="cacher">
+                <label for="pseudo">Pseudo</label>
+                <input type="text" id="pseudo" name="pseudo" placeholder="Votre pseudo">
+                <label for="name">Nom</label>
+                <input type="text" id="name" name="name" placeholder="Votre nom ">
+                <label for="titre">Sujet</label>
+                <input type="text" id="titre" name="titre" placeholder="L'objet de votre message">
+                <label for="description">Message</label>
+                <textarea id="description" name="description" placeholder="Votre message" style="height:200px"></textarea>
+                <input type="submit" value="Envoyer">
+            
+            </form>
+            <hr>
+        </section>
+        <section>
+            <h2>Liste des notes</h2>
+        
+                <% for(i=0 ; i <resultat.length ; i++ ) { %>
+                
+                <p>  <%= resultat[i].pseudo %>  </p>              
+                <p>  <%= resultat[i].name %>  </p>  
+                <p>  <%= resultat[i].titre %>  </p>  
+                <p>  <%= resultat[i].description %>  </p> 
+                <input type="button" value="supprimer" onclick="supprimer('<%= resultat[i].id %>')">
+                <input type="button" value="modifier" onclick="remplir('<%= resultat[i].id %>', '<%= resultat[i].pseudo %>', '<%= resultat[i].name %>', '<%= resultat[i].titre %>', '<%= resultat[i].description %>')">
+        
+            <% } %>    
+        </section>
+    </div>
+    <script>
+        function remplir(cacher, pseudo, name, titre, description){
+            document.getElementById('cacher').value = cacher
+            document.getElementById('pseudo').value = pseudo
+            document.getElementById('name').value = name
+            document.getElementById('titre').value = titre
+            document.getElementById('description').value = description
+        }
+        function supprimer(id){
+            let pointFinal = "/" + id;
+            fetch(pointFinal, {method : "DELETE"}
+                ).then((response) => response.json()
+                ).then((data) => window.location.href = data.routeRacine 
+                ).catch((error) =>{ throw error })
+        }
+    </script>
+<%- include('./includes/footer.ejs') %>

@@ -1,0 +1,30 @@
+<%- include('./includes/head.ejs') %>
+
+</head>
+
+<body>
+    <div class="container">
+      <header>
+        <h1>Notes app</h1>
+        <nav>
+          <ul>
+            <li>
+              <a href="/">Accueil</a>
+            </li>
+            <li>
+              <a href="/apropos">A Propos</a></li>
+          </ul>
+        </nav>
+      </header>
+      
+      <section>
+        <h2>404 page introuvable </h2>
+        <b> URL incorrect </b>
+        <p> ou </p>
+        <i>  <b> <%= error.toString() %> </b></i>
+      
+
+      </section>
+    </div>
+
+<%- include('./includes/footer.ejs') %>
